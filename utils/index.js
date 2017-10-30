@@ -21,7 +21,6 @@ function generateJS(components) {
         if (err) console.log('****error: ', err);
         else {
             let updatedFileData = data.replace('<div></div>', '<div>' + componentString + '</div>');
-            console.log('***** fileData: ', beautify(updatedFileData, { indent_size: 2 }));
             fs.appendFile('sample.js', updatedFileData, function (err) {
                 if (err) throw err;
                 console.log('Saved!');
