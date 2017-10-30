@@ -1,6 +1,5 @@
 const fs = require('fs');
 const _ = require('lodash');
-const beautify = require('js-beautify').js_beautify;
 
 function generateJS(components) {
     console.log('******* in generateJS');
