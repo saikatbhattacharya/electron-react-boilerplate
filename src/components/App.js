@@ -12,13 +12,15 @@ class App extends React.Component {
       componentsList:[],
       componentRegister:[]
     }
-    this.onDragStop1 = this.onDragStop1.bind(this);
+    this.onDragStopFunc = this.onDragStopFunc.bind(this);
+    this.onRsizeFunc = this.onRsizeFunc.bind(this);
     this.handleButton = this.handleButton.bind(this);
     this.handleInputText = this.handleInputText.bind(this);
     this.handleExport = this.handleExport.bind(this);
   }
 
   handleExport(){
+    console.log('yaha',this.state.componentRegister);
     ipcRenderer.send('generate-file', this.state.componentRegister);
   }
 
@@ -28,8 +30,9 @@ class App extends React.Component {
     let componentRegister = this.state.componentRegister;
     let index = component.length + 1;
     component.push(<Button index={index}
-    onDragStop1={this.onDragStop1} />)
-    componentRegister.push({type: 'button', id: 'button_'+index, position: [0, 0], dimensions: []});
+    onDragStopFunc={this.onDragStopFunc}
+    onRsizeFunc={this.onRsizeFunc} />)
+    componentRegister.push({type: 'button', id: 'button_'+index, position: [0, 0], dimensions: [200,50]});
     this.setState({ componentsList:component, componentRegister})
    
   }
@@ -40,13 +43,26 @@ class App extends React.Component {
     let componentRegister = this.state.componentRegister;
     let index = component.length + 1;
     component.push(<InputText index={index} 
-    onDragStop1={this.onDragStop1} />)
+    onDragStopFunc={this.onDragStopFunc} />)
     componentRegister.push({type: 'inputText', id: 'inputText_'+index, position: [0, 0], dimensions: []});  
     this.setState({componentsList:component, componentRegister})
   }
 
-  onDragStop1(index,e, d){
-   console.log(index,e,d);    
+  onDragStopFunc(index,e, d){
+    console.log('dragstop',this.state.componentRegister[index-1],index)
+     let a=this.state.componentRegister[index-1];
+     a.position[0]=e;
+     a.position[1]=d;
+
+   console.log(index,e,d,a);    
+  }
+
+  onRsizeFunc(index,width,height){
+    console.log('dragstop',this.state.componentRegister[index-1],index)
+     let a=this.state.componentRegister[index-1];
+     a.dimensions[0]=width;
+     a.dimensions[1]=height;
+     console.log('widthHiegth',index,width,height);
   }
   
   render() {

@@ -12,6 +12,17 @@ class Button extends React.Component {
       height: 50,
     }
     this.onDragStop = this.onDragStop.bind(this);
+    this.onResizeStop = this.onResizeStop.bind(this);
+  }
+
+  onResizeStop(e, direction, ref, delta, position){
+    console.log('ikkada',e, direction, ref, delta, position);
+          this.setState({
+            width: ref.offsetWidth,
+            height: ref.offsetHeight
+          });
+    this.props.onRsizeFunc(this.props.index, ref.offsetWidth, ref.offsetHeight)      
+
   }
 
   onDragStop(e, d){
@@ -19,7 +30,7 @@ class Button extends React.Component {
     let y = d.y < 0 ? 0 : d.y;
     console.log('****** coordinates: '+ x+','+y);
     this.setState({ x, y });
-    this.props.onDragStop1(this.props.index,x,y)
+    this.props.onDragStopFunc(this.props.index,x,y)
   }
  
   render() {
@@ -28,12 +39,7 @@ class Button extends React.Component {
         size={{ width: this.state.width, height: this.state.height }}
         position={{ x: this.state.x, y: this.state.y }}
         onDragStop={this.onDragStop}
-        onResize={(e, direction, ref, delta, position) => {
-          this.setState({
-            width: ref.offsetWidth,
-            height: ref.offsetHeight
-          });
-        } }
+        onResize={this.onResizeStop}
         >
         <div className="sampleBody">
           <h3 className="sampleText">Drag me!</h3>

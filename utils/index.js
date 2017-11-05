@@ -2,7 +2,7 @@ const fs = require('fs');
 const _ = require('lodash');
 
 function generateJS(components) {
-    console.log('******* in generateJS');
+    console.log('******* in generateJS',components);
     let componentString = '';
     _.map(components, (each) => {
         switch (each.type) {
