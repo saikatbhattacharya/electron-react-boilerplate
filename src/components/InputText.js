@@ -23,7 +23,7 @@ class InputText extends React.Component {
     let y = d.y < 0 ? 0 : d.y;
     console.log('****** coordinates: '+ x+','+y);
     this.setState({ x, y });
-    this.props.onDragStop1(this.props.index,x,y)
+    this.props.onDragStopFunc(this.props.index,x,y)
   }
  
   render() {
